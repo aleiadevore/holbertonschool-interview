@@ -15,18 +15,24 @@ listint_t *insert_node(listint_t **head, int number)
     int i;
     listint_t *new, *before = *head, *after = (*head)->next;
 
-    /* insert in empty list */
-    if (!*head)
-        return NULL;
-
     /* allocate space for new node */
     new = malloc(sizeof(listint_t));
     new->n = number;
+
+
+    /* insert in empty list */
+    if (!head || !*head)
+    {
+        printf("Inside null if\n");
+        *head = new;
+        return new;
+    }
 
     /* insert at beginning */
     if (number < before->n)
     {
         new->next = before;
+        *head = new;
         return new;
     }
 
