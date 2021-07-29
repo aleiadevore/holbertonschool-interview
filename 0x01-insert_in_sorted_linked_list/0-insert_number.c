@@ -15,9 +15,20 @@ listint_t *insert_node(listint_t **head, int number)
     int i;
     listint_t *new, *before = *head, *after = (*head)->next;
 
+    /* insert in empty list */
+    if (!*head)
+        return NULL;
+
     /* allocate space for new node */
     new = malloc(sizeof(listint_t));
     new->n = number;
+
+    /* insert at beginning */
+    if (number < before->n)
+    {
+        new->next = before;
+        return new;
+    }
 
     /* progress through linked list*/
     for (i = 0; before != NULL; i++, before = before->next)
@@ -30,7 +41,8 @@ listint_t *insert_node(listint_t **head, int number)
                 new->next = NULL;
                 return new;
             }
-            else if (after->n > number)
+            /* assuming in case of duplicate to insert before first instance */
+            else if (after->n >= number)
             {
                 before->next = new;
                 new->next = after;
