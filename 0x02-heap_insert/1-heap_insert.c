@@ -43,8 +43,10 @@ heap_t *heap_insert(heap_t **root, int value)
 
 	/* heapify */
 	if (new->parent && new->n > new->parent->n)
+	{
 		swap(new, new->parent);
-
+		return (new->parent);
+	}
 	return (new);
 }
 
