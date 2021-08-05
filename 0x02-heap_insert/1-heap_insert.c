@@ -11,6 +11,7 @@
 heap_t *heap_insert(heap_t **root, int value)
 {
 	heap_t *node = NULL, *new = NULL;
+	int height, i;
 
 	if (*root == NULL)
 	{
@@ -20,15 +21,19 @@ heap_t *heap_insert(heap_t **root, int value)
 		return (*root);
 	}
 	/*traverse tree to end */
-	binary_tree_height(*root);
+	height = binary_tree_height(*root);
 	node = *root;
-	while(1)
+	while (1)
 	{
 		if (!node->left || !node->right)
 			break;
-		else
-			node = node->left;
-		
+		if (i == height - 1)
+		{
+			node = (*root)->right;
+			i = 1;
+		}
+		node = node->left;
+		i += 1;
 	}
 
 	/* add new node */
@@ -37,16 +42,18 @@ heap_t *heap_insert(heap_t **root, int value)
 		return (NULL);
 
 	/* heapify */
+	if (new->parent && new->n > new->parent->n)
+		swap(new, new->parent);
 
 	return (new);
 }
 
 /**
  * swap - swaps values of two nodes
- * 
+ *
  * @a: first node
  * @b: second node
- * 
+ *
  * Return: void
  */
 
