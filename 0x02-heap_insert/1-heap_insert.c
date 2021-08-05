@@ -19,8 +19,8 @@ heap_t *heap_insert(heap_t **root, int value)
 			return (NULL);
 		return (*root);
 	}
-	// traverse tree to end
-	binary_tree_height(root);
+	/*traverse tree to end */
+	binary_tree_height(*root);
 	node = *root;
 	while(1)
 	{
@@ -31,12 +31,12 @@ heap_t *heap_insert(heap_t **root, int value)
 		
 	}
 
-	// add new node
+	/* add new node */
 	new = binary_tree_node(node, value);
 	if (!new)
 		return (NULL);
 
-	// heapify
+	/* heapify */
 
 	return (new);
 }
@@ -94,6 +94,3 @@ size_t binary_tree_height(const binary_tree_t *tree)
 		return (total);
 	return (total - 1);
 }
-// insert
-
-// heapify
