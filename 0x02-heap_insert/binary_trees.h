@@ -30,5 +30,6 @@ heap_t *heap_insert(heap_t **root, int value);
 size_t binary_tree_height(const binary_tree_t *tree);
 size_t height_finder(const binary_tree_t *tree);
 void swap(binary_tree_t *a, binary_tree_t *b);
+int binary_tree_balance(const binary_tree_t *tree);
 
 #endif /* _BINARY_TREES_H_ */
