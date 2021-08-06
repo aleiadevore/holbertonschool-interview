@@ -47,7 +47,6 @@ heap_t *heap_insert(heap_t **root, int value)
 	if (new->parent && new->n > new->parent->n)
 	{
 		swap(new, new->parent);
-		printf("Swapped\n");
 		return (new->parent);
 	}
 	return (new);
