@@ -2,9 +2,10 @@
 """Checks minimum number of operations needed"""
 import math
 
-def minOperations(n):
-    ans = math.log(n, 2)
 
-    if ans:
+def minOperations(n):
+    try:
+        ans = math.log(n, 2)
         return round(ans * 2)
-    return 0
+    except:
+        return 0
