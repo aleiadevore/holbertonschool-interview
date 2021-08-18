@@ -33,7 +33,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 }
 
 /**
- * prind_grid1 - prints grid 1
+ * print_grid1 - prints grid 1
  * @grid1 - grid1
  *
  * Return: void
@@ -66,53 +66,37 @@ void print_grid1(int grid1[3][3])
 
 void topple_grid(int grid1[3][3])
 {
-	int i, j, bool = 0;
-
 	if (grid1[1][1] > 3)
-	{
 		add_around(grid1, 1, 1);
-		grid1[1][1] -= 4;
-	}
 	if (grid1[0][1] > 3)
-	{
 		add_around(grid1, 0, 1);
-		grid1[0][1] -= 4;
-	}
 	if (grid1[1][0] > 3)
-	{
 		add_around(grid1, 1, 0);
-		grid1[1][0] -= 4;
-	}
 	if (grid1[1][2] > 3)
-	{
 		add_around(grid1, 1, 2);
-		grid1[1][2] -= 4;
-	}
 	if (grid1[2][1] > 3)
-	{
 		add_around(grid1, 2, 1);
-		grid1[2][1] -= 4;
-	}
 	if (grid1[0][0] > 3)
-	{
 		add_around(grid1, 0, 0);
-		grid1[0][0] -= 4;
-	}
 	if (grid1[0][2] > 3)
-	{
 		add_around(grid1, 0, 2);
-		grid1[0][2] -= 4;
-	}
 	if (grid1[2][0] > 3)
-	{
 		add_around(grid1, 2, 0);
-		grid1[2][0] -= 4;
-	}
 	if (grid1[2][2] > 3)
-	{
 		add_around(grid1, 2, 2);
-		grid1[2][2] -= 4;
-	}
+	check_grid(grid1);
+}
+
+/**
+ * check_grid - checks if grid is stable
+ * @grid1: grid to check
+ *
+ * Return: void
+ */
+
+void check_grid(int grid1[3][3])
+{
+	int i, j, bool = 0;
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
@@ -127,10 +111,9 @@ void topple_grid(int grid1[3][3])
 		topple_grid(grid1);
 	}
 }
-
 /**
  * add_around - adds around position
- * @grid1: grid to manipulate
+ * @g: grid to manipulate
  * @i: row in grid
  * @j: column in grid
  * Return: void
@@ -146,4 +129,5 @@ void add_around(int g[3][3], int i, int j)
 		g[i][j - 1] += 1;
 	if (j < 2)
 		g[i][j + 1] += 1;
+	g[i][j] -= 4;
 }
