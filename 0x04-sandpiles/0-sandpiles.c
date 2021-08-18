@@ -23,12 +23,18 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 				bool = 1;
 		}
 	}
-
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			tmp[i][j] = grid1[i][j];
+		}
+	}
     /* If unstable, print sandpile before toppling */
 	if (bool == 1)
 	{
 		print_grid1(grid1);
-		topple_grid(grid1);
+		topple_grid(grid1, tmp);
 	}
 }
 
@@ -64,66 +70,36 @@ void print_grid1(int grid1[3][3])
  * Return: void
  */
 
-void topple_grid(int grid1[3][3])
+void topple_grid(int grid1[3][3], int temp[3][3])
 {
-	if (grid1[1][1] > 3)
+	int i, j;
+	/*if (temp[1][1] > 3)
 		add_around(grid1, 1, 1);
-	if (grid1[0][0] > 3)
+	if (temp[0][0] > 3)
 		add_around(grid1, 0, 0);
-	if (grid1[0][2] > 3)
+	if (temp[0][2] > 3)
 		add_around(grid1, 0, 2);
-	if (grid1[2][0] > 3)
+	if (temp[2][0] > 3)
 		add_around(grid1, 2, 0);
-	if (grid1[2][2] > 3)
+	if (temp[2][2] > 3)
 		add_around(grid1, 2, 2);
-	if (grid1[0][1] > 3)
+	if (temp[0][1] > 3)
 		add_around(grid1, 0, 1);
-	if (grid1[1][0] > 3)
+	if (temp[1][0] > 3)
 		add_around(grid1, 1, 0);
-	if (grid1[1][2] > 3)
+	if (temp[1][2] > 3)
 		add_around(grid1, 1, 2);
-	if (grid1[2][1] > 3)
-		add_around(grid1, 2, 1);
-	/*for (i = 0; i < 3; i++)
+	if (temp[2][1] > 3)
+		add_around(grid1, 2, 1);*/
+	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
 		{
-			if (grid1[i][j] > 3)
+			if (temp[i][j] > 3)
 				add_around(grid1, i, j);
 		}
-	}*/
-	check_grid(grid1);
-}
-
-void topple_grid_b(int grid1[3][3])
-{
-	if (grid1[1][1] > 3)
-		add_around(grid1, 1, 1);
-	if (grid1[0][1] > 3)
-		add_around(grid1, 0, 1);
-	if (grid1[1][0] > 3)
-		add_around(grid1, 1, 0);
-	if (grid1[1][2] > 3)
-		add_around(grid1, 1, 2);
-	if (grid1[2][1] > 3)
-		add_around(grid1, 2, 1);
-	if (grid1[0][0] > 3)
-		add_around(grid1, 0, 0);
-	if (grid1[0][2] > 3)
-		add_around(grid1, 0, 2);
-	if (grid1[2][0] > 3)
-		add_around(grid1, 2, 0);
-	if (grid1[2][2] > 3)
-		add_around(grid1, 2, 2);
-	/*for (i = 0; i < 3; i++)
-	{
-		for (j = 0; j < 3; j++)
-		{
-			if (grid1[i][j] > 3)
-				add_around(grid1, i, j);
-		}
-	}*/
-	check_grid(grid1);
+	}
+	check_grid(grid1, temp);
 }
 
 /**
@@ -133,7 +109,7 @@ void topple_grid_b(int grid1[3][3])
  * Return: void
  */
 
-void check_grid(int grid1[3][3])
+void check_grid(int grid1[3][3], int temp[3][3])
 {
 	int i, j, bool = 0;
 
@@ -147,11 +123,13 @@ void check_grid(int grid1[3][3])
 	}
 	if (bool == 1)
 	{
+		for (i = 0; i < 3; i++)
+		{
+			for (j = 0; j < 3; j++)
+				temp[i][j] = grid1[i][j];
+		}
 		print_grid1(grid1);
-		if (grid1[0][0] == 4 && grid1[0][1] == 2)
-			topple_grid_b(grid1);
-		else
-			topple_grid(grid1);
+		topple_grid(grid1, temp);
 	}
 }
 /**
