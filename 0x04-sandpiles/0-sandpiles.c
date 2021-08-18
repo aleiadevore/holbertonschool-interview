@@ -34,7 +34,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 
 /**
  * print_grid1 - prints grid 1
- * @grid1 - grid1
+ * @grid1: grid1
  *
  * Return: void
  */
@@ -97,6 +97,7 @@ void topple_grid(int grid1[3][3])
 void check_grid(int grid1[3][3])
 {
 	int i, j, bool = 0;
+
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
