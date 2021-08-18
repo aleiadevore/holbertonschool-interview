@@ -1,3 +1,1 @@
-# holbertonschool-interview
-
-This repo contains interview algorithm practice problems.
+Write a function that computes the sum of two sandpiles.
