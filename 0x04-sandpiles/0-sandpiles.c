@@ -35,7 +35,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 				if (j <= 2)
 					printf("%d ", grid1[i][j]);
 				else
-                    			printf("%d", grid1[i][j]);
+					printf("%d", grid1[i][j]);
 			}
 			printf("\n");
 		}
