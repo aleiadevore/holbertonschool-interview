@@ -1,1 +1,1 @@
-Write a function that computes the sum of two sandpiles.
+This repositiory contains practice files for common interview algorithms.
