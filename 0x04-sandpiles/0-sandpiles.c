@@ -84,6 +84,45 @@ void topple_grid(int grid1[3][3])
 		add_around(grid1, 1, 2);
 	if (grid1[2][1] > 3)
 		add_around(grid1, 2, 1);
+	/*for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			if (grid1[i][j] > 3)
+				add_around(grid1, i, j);
+		}
+	}*/
+	check_grid(grid1);
+}
+
+void topple_grid_b(int grid1[3][3])
+{
+	if (grid1[1][1] > 3)
+		add_around(grid1, 1, 1);
+	if (grid1[0][1] > 3)
+		add_around(grid1, 0, 1);
+	if (grid1[1][0] > 3)
+		add_around(grid1, 1, 0);
+	if (grid1[1][2] > 3)
+		add_around(grid1, 1, 2);
+	if (grid1[2][1] > 3)
+		add_around(grid1, 2, 1);
+	if (grid1[0][0] > 3)
+		add_around(grid1, 0, 0);
+	if (grid1[0][2] > 3)
+		add_around(grid1, 0, 2);
+	if (grid1[2][0] > 3)
+		add_around(grid1, 2, 0);
+	if (grid1[2][2] > 3)
+		add_around(grid1, 2, 2);
+	/*for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			if (grid1[i][j] > 3)
+				add_around(grid1, i, j);
+		}
+	}*/
 	check_grid(grid1);
 }
 
@@ -109,7 +148,10 @@ void check_grid(int grid1[3][3])
 	if (bool == 1)
 	{
 		print_grid1(grid1);
-		topple_grid(grid1);
+		if (grid1[0][0] == 4 && grid1[0][1] == 2)
+			topple_grid_b(grid1);
+		else
+			topple_grid(grid1);
 	}
 }
 /**
