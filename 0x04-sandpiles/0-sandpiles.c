@@ -10,15 +10,15 @@
 
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
-	int tmp[3][3];
+	int temp[3][3];
 	int i, j, bool = 0;
 
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
 		{
-			tmp[i][j] = grid1[i][j];
-			grid1[i][j] = tmp[i][j] + grid2[i][j];
+			temp[i][j] = grid1[i][j];
+			grid1[i][j] = temp[i][j] + grid2[i][j];
 			if (grid1[i][j] >= 4)
 				bool = 1;
 		}
@@ -27,14 +27,14 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 	{
 		for (j = 0; j < 3; j++)
 		{
-			tmp[i][j] = grid1[i][j];
+			temp[i][j] = grid1[i][j];
 		}
 	}
     /* If unstable, print sandpile before toppling */
 	if (bool == 1)
 	{
 		print_grid1(grid1);
-		topple_grid(grid1, tmp);
+		topple_grid(grid1, temp);
 	}
 }
 
@@ -66,6 +66,7 @@ void print_grid1(int grid1[3][3])
 /**
  * topple_grid - topples the grid
  * @grid1: grid to topple
+ * @temp: previous state of grid1
  *
  * Return: void
  */
@@ -73,24 +74,7 @@ void print_grid1(int grid1[3][3])
 void topple_grid(int grid1[3][3], int temp[3][3])
 {
 	int i, j;
-	/*if (temp[1][1] > 3)
-		add_around(grid1, 1, 1);
-	if (temp[0][0] > 3)
-		add_around(grid1, 0, 0);
-	if (temp[0][2] > 3)
-		add_around(grid1, 0, 2);
-	if (temp[2][0] > 3)
-		add_around(grid1, 2, 0);
-	if (temp[2][2] > 3)
-		add_around(grid1, 2, 2);
-	if (temp[0][1] > 3)
-		add_around(grid1, 0, 1);
-	if (temp[1][0] > 3)
-		add_around(grid1, 1, 0);
-	if (temp[1][2] > 3)
-		add_around(grid1, 1, 2);
-	if (temp[2][1] > 3)
-		add_around(grid1, 2, 1);*/
+
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
@@ -105,6 +89,7 @@ void topple_grid(int grid1[3][3], int temp[3][3])
 /**
  * check_grid - checks if grid is stable
  * @grid1: grid to check
+ * @temp: previous state of grid1
  *
  * Return: void
  */
