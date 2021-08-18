@@ -48,7 +48,7 @@ void print_grid1(int grid1[3][3])
 	{
 		for (j = 0; j < 3; j++)
 		{
-			if (j <= 2)
+			if (j < 2)
 				printf("%d ", grid1[i][j]);
 			else
 				printf("%d", grid1[i][j]);
@@ -56,6 +56,13 @@ void print_grid1(int grid1[3][3])
 		printf("\n");
 	}
 }
+
+/**
+ * topple_grid - topples the grid
+ * @grid1: grid to topple
+ *
+ * Return: void
+ */
 
 void topple_grid(int grid1[3][3])
 {
@@ -120,6 +127,14 @@ void topple_grid(int grid1[3][3])
 		topple_grid(grid1);
 	}
 }
+
+/**
+ * add_around - adds around position
+ * @grid1: grid to manipulate
+ * @i: row in grid
+ * @j: column in grid
+ * Return: void
+ */
 
 void add_around(int g[3][3], int i, int j)
 {
