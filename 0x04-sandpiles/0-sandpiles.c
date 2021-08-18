@@ -68,14 +68,6 @@ void topple_grid(int grid1[3][3])
 {
 	if (grid1[1][1] > 3)
 		add_around(grid1, 1, 1);
-	if (grid1[0][1] > 3)
-		add_around(grid1, 0, 1);
-	if (grid1[1][0] > 3)
-		add_around(grid1, 1, 0);
-	if (grid1[1][2] > 3)
-		add_around(grid1, 1, 2);
-	if (grid1[2][1] > 3)
-		add_around(grid1, 2, 1);
 	if (grid1[0][0] > 3)
 		add_around(grid1, 0, 0);
 	if (grid1[0][2] > 3)
@@ -84,6 +76,14 @@ void topple_grid(int grid1[3][3])
 		add_around(grid1, 2, 0);
 	if (grid1[2][2] > 3)
 		add_around(grid1, 2, 2);
+	if (grid1[0][1] > 3)
+		add_around(grid1, 0, 1);
+	if (grid1[1][0] > 3)
+		add_around(grid1, 1, 0);
+	if (grid1[1][2] > 3)
+		add_around(grid1, 1, 2);
+	if (grid1[2][1] > 3)
+		add_around(grid1, 2, 1);
 	check_grid(grid1);
 }
 
