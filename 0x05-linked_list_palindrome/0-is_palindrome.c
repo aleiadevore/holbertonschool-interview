@@ -12,10 +12,10 @@
 
 int is_palindrome(listint_t **head)
 {
-	int s1[1024];
+	int s1[2048];
 	int i, j;
 
-	for (i = 0; i < 1024; i++)
+	for (i = 0; i < 2048; i++)
 	{
 		s1[i] = '\0';
 	}
@@ -34,6 +34,7 @@ int is_palindrome(listint_t **head)
 int construct(listint_t *head, int *s1, int i)
 {
 	i++;
+	/*printf("In construct, i=%d\n", i);*/
 
 	if (head == NULL)
 		return i;
