@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "lists.h"
 
 /**
@@ -11,28 +12,33 @@
 
 int is_palindrome(listint_t **head)
 {
-	int i = 0, length;
-	int buffer[1024];
-	listint_t *node = *head;
+	int s1[1024];
+	int i, j;
 
-	if (head == NULL)
-		return (1);
-
-	for (length = 0; length < 1024; length++)
-		buffer[length] = '\0';
-
-	for (; node != NULL; node = node->next, i++)
-		buffer[i] = node->n;
-
-	/* Set length, then traverse from both sides */
-	for (length = 0; buffer[length]; length++)
-		;
-
-	for (i = 0, length--; length > 0; i++, length--)
+	for (i = 0; i < 1024; i++)
 	{
-		if (buffer[i] != buffer[length])
+		s1[i] = 0;
+	}
+	i = construct(*head, s1, -1);
+	if (i == 1)
+		return (1);
+	for (j = 0, i--; s1[j] != 0; j++, i--)
+	{
+		if (s1[i] != s1[j])
 			return (0);
 	}
 
 	return (1);
+}
+
+int construct(listint_t *head, int *s1, int i)
+{
+	i++;
+
+	if (head == NULL)
+		return i;
+
+	s1[i] = head->n;
+
+	return construct(head->next, s1, i);
 }
