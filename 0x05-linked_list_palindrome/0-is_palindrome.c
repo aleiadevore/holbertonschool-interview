@@ -17,12 +17,12 @@ int is_palindrome(listint_t **head)
 
 	for (i = 0; i < 1024; i++)
 	{
-		s1[i] = 0;
+		s1[i] = '\0';
 	}
 	i = construct(*head, s1, -1);
 	if (i == 1)
 		return (1);
-	for (j = 0, i--; s1[j] != 0; j++, i--)
+	for (j = 0, i--; i > 0; j++, i--)
 	{
 		if (s1[i] != s1[j])
 			return (0);
