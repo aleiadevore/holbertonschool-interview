@@ -16,13 +16,19 @@ status = {
     '500': 0
 } 
 
-for line in fileinput.input():
-    i += 1
-    delim = line.split()
-    status[delim[7]] += 1
-    if i % 10 == 0:
-        filesize += int(delim[8])
-        print("File size: {}".format(filesize))
-        for item in status.items():
-            if item[1] != 0:
-                print("{}: {}".format(item[0], item[1]))
+try:
+    for line in fileinput.input():
+        i += 1
+        delim = line.split()
+        status[delim[7]] += 1
+        if i % 10 == 0:
+            filesize += int(delim[8])
+            print("File size: {}".format(filesize))
+            for item in status.items():
+                if item[1] != 0:
+                    print("{}: {}".format(item[0], item[1]))
+except KeyboardInterrupt:
+    print("File size: {}".format(filesize))
+    for item in status.items():
+        if item[1] != 0:
+            print("{}: {}".format(item[0], item[1]))
