@@ -21,7 +21,9 @@ try:
     for line in fileinput.input():
         i += 1
         delim = line.split()
-        status[delim[7]] += 1
+        if len(delim) > 7:
+            if delim[7] in status.keys():
+                status[delim[7]] += 1
         if i % 10 == 0:
             filesize += int(delim[8])
             print("File size: {}".format(filesize))
