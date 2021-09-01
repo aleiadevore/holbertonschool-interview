@@ -25,11 +25,15 @@ try:
         if i % 10 == 0:
             filesize += int(delim[8])
             print("File size: {}".format(filesize))
-            for item in status.items():
+            for item in sorted (status.items()):
                 if item[1] != 0:
                     print("{}: {}".format(item[0], item[1]))
+    print("File size: {}".format(filesize))
+    for item in sorted (status.items()):
+        if item[1] != 0:
+            print("{}: {}".format(item[0], item[1]))
 except KeyboardInterrupt:
     print("File size: {}".format(filesize))
-    for item in status.items():
+    for item in sorted (status.items()):
         if item[1] != 0:
             print("{}: {}".format(item[0], item[1]))
