@@ -21,11 +21,12 @@ try:
     for line in fileinput.input():
         i += 1
         delim = line.split()
-        if len(delim) > 7:
-            if delim[7] in status.keys():
-                status[delim[7]] += 1
-        if delim[len(delim) - 1].isdigit():
-            filesize += int(delim[len(delim) - 1])
+        code = delim[len(delim) - 2]
+        if code in status.keys():
+            status[code] += 1
+        size = delim[len(delim) - 1]
+        if size.isdigit():
+            filesize += int(size)
         if i % 10 == 0:
             print("File size: {}".format(filesize))
             for item in sorted(status.items()):
