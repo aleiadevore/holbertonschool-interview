@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Parses lines from standard input"""
 import sys
 import fileinput
 
@@ -14,7 +15,7 @@ status = {
     '404': 0,
     '405': 0,
     '500': 0
-} 
+}
 
 try:
     for line in fileinput.input():
