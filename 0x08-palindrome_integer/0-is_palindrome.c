@@ -20,7 +20,7 @@ int is_palindrome(unsigned long n)
 
 int palindrome_check(long n)
 {
-	int first, last;
+	int first;
 
 	if (n < 0)
 		return (-1);
@@ -32,7 +32,7 @@ int palindrome_check(long n)
 		/*printf("%d\n", first);*/
 	}
 	/*first /= 10;*/
-	last = n % 10;
+	/*last = n % 10;*/
 	/*printf("First: %d\nLast: %d\n", first, last);
 	printf("__________\n");*/
 	if (n % 10 != first)
