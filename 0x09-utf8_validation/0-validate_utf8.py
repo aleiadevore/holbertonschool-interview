@@ -3,6 +3,7 @@
 Returns True if data is valid UTF-8 encoding, otherwise returns False
 """
 
+
 def validUTF8(data):
     # If byte starts UTF-8 char, process first N bits with N <= 4
     # If N > 4, return False
@@ -35,5 +36,3 @@ def validUTF8(data):
         # Repeat cycle for next largest bit in multibit char
         N -= 1
     return N == 0
-
-
