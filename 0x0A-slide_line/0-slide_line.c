@@ -29,8 +29,8 @@ int slide_line(int *line, size_t size, int direction)
 
 int slide_left(int *line, int size)
 {
-    int prev = 0, i, dup_count = 0, newI = 0;
-    int new[size];
+    int prev = 0, i, dup_count = 0, dupI = 0;
+    int dup[size];
 
     for (i = 0; i < size; i++)
     {
@@ -38,15 +38,15 @@ int slide_left(int *line, int size)
         {
             if (line[i] == prev && dup_count == 1)
             {
-                new[newI] = prev * 2;
-                newI++;
+                dup[dupI] = prev * 2;
+                dupI++;
                 prev = 0;
                 dup_count = 0;
             }
             else if (line[i] != prev && prev != 0)
             {
-                new[newI] = prev;
-                newI++;
+                dup[dupI] = prev;
+                dupI++;
                 prev = line[i];
                 dup_count = 1;
             }
@@ -60,15 +60,15 @@ int slide_left(int *line, int size)
 
     if (dup_count != 0)
     {
-        new[newI] = prev;
-        newI++;
+        dup[dupI] = prev;
+        dupI++;
     }
-    /* Filling in rest of new */
-    for (; newI < size; newI++)
-        new[newI] = 0;
+    /* Filling in rest of dup */
+    for (; dupI < size; dupI++)
+        dup[dupI] = 0;
 
     for (i = 0; i < size; i++)
-        line[i] = new[i];
+        line[i] = dup[i];
 
     return (1);
 }
@@ -84,8 +84,8 @@ int slide_left(int *line, int size)
 
 int slide_right(int *line, int size)
 {
-    int prev = 0, i, dup_count = 0, newI = size - 1;
-    int new[size];
+    int prev = 0, i, dup_count = 0, dupI = size - 1;
+    int dup[size];
 
     for (i = size - 1; i >= 0; i--)
     {
@@ -93,15 +93,15 @@ int slide_right(int *line, int size)
         {
             if (line[i] == prev && dup_count == 1)
             {
-                new[newI] = prev * 2;
-                newI--;
+                dup[dupI] = prev * 2;
+                dupI--;
                 prev = 0;
                 dup_count = 0;
             }
             else if (line[i] != prev && prev != 0)
             {
-                new[newI] = prev;
-                newI--;
+                dup[dupI] = prev;
+                dupI--;
                 prev = line[i];
                 dup_count = 1;
             }
@@ -115,15 +115,15 @@ int slide_right(int *line, int size)
 
     if (dup_count != 0)
     {
-        new[newI] = prev;
-        newI--;
+        dup[dupI] = prev;
+        dupI--;
     }
-    /* Filling in rest of new */
-    for (; newI >= 0; newI--)
-        new[newI] = 0;
+    /* Filling in rest of dup */
+    for (; dupI >= 0; dupI--)
+        dup[dupI] = 0;
 
     for (i = 0; i < size; i++)
-        line[i] = new[i];
+        line[i] = dup[i];
 
     return (1);
 }
