@@ -30,7 +30,7 @@ int slide_line(int *line, size_t size, int direction)
 int slide_left(int *line, int size)
 {
     int prev = 0, i, dup_count = 0, dupI = 0;
-    int dup[size];
+    int dup[2048];
 
     for (i = 0; i < size; i++)
     {
@@ -85,7 +85,7 @@ int slide_left(int *line, int size)
 int slide_right(int *line, int size)
 {
     int prev = 0, i, dup_count = 0, dupI = size - 1;
-    int dup[size];
+    int dup[2048];
 
     for (i = size - 1; i >= 0; i--)
     {
