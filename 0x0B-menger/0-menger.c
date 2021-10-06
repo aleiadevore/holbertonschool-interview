@@ -44,6 +44,15 @@ void menger(int level)
 	/* WOULD IT BE BETTER TO FILL IN ALL WITH # AND THEN REPLACE WITH SPACE? */
 }
 
+/**
+ * make_menger - makes one menger level
+ * @level: level of menger
+ * @place: number of levels created
+ * @sponge: final menger sponge
+ *
+ * Return: void
+ */
+
 void make_menger(int level, int place, char **sponge)
 {
 	int i, j, subsize;
@@ -51,7 +60,7 @@ void make_menger(int level, int place, char **sponge)
 
 	/* First level logic only */
 	subsize = pow(3, place);
-	sub_array = malloc(sizeof(char*) * subsize);
+	sub_array = malloc(sizeof(char *) * subsize);
 	if (!sub_array)
 		return;
 	for (i = 0; i < subsize; i++)
@@ -84,23 +93,16 @@ void make_menger(int level, int place, char **sponge)
 		for (i = 0; i < subsize; i++)
 			free(sub_array[i]);
 		free(sub_array);
-		return;
 	}
-
-	
-
-	/* Next level logic */
-	/*subsize = pow(3, place);
-	sub_array = malloc(sizeof(char) * subsize * subsize);
-	for (i = 0; i < subsize; i++)
-	{
-		for (j = 0; j < subsize; j++)
-	}
-
-	free(sub_array);*/
-	return;
-	
 }
+
+/**
+ * print_menger - prints menger sponge
+ * @sponge: sponge to print
+ * @row_size: size of one row
+ *
+ * Return: void
+ */
 
 void print_menger(char **sponge, int row_size)
 {
