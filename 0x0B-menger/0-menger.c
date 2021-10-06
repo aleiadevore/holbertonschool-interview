@@ -60,18 +60,7 @@ void make_menger(int level, int place, char **sponge)
 
 	/* First level logic only */
 	subsize = pow(3, place);
-	sub_array = malloc(sizeof(char *) * subsize);
-	if (!sub_array)
-		return;
-	for (i = 0; i < subsize; i++)
-	{
-		sub_array[i] = malloc(sizeof(char) * subsize);
-		if (!sub_array[i])
-		{
-			free(sub_array);
-			return;
-		}
-	}
+	sub_array = make_sub(sub_array, subsize);
 	for (i = 0; i < subsize; i++)
 	{
 		for (j = 0; j < subsize; j++)
@@ -114,4 +103,31 @@ void print_menger(char **sponge, int row_size)
 			putchar(sponge[i][j]);
 		printf("\n");
 	}
+}
+
+/**
+ * make_sub - mallocs matrix
+ * @sub_array: matrix to make
+ * @subsize: size of matrix
+ *
+ * Return: matrix or NULL on error
+ */
+
+char **make_sub(char **sub_array, int subsize)
+{
+	int i;
+
+	sub_array = malloc(sizeof(char *) * subsize);
+	if (!sub_array)
+		return (NULL);
+	for (i = 0; i < subsize; i++)
+	{
+		sub_array[i] = malloc(sizeof(char) * subsize);
+		if (!sub_array[i])
+		{
+			free(sub_array);
+			return (NULL);
+		}
+	}
+	return (sub_array);
 }
