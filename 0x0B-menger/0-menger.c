@@ -23,18 +23,8 @@ void menger(int level)
 
 	/* Malloc 3^level * 3^level matrix */
 	row_size = pow(3, level);
-	sponge = malloc(sizeof(char *) * row_size);
-	if (!sponge)
-		return;
-	for (i = 0; i < row_size; i++)
-	{
-		sponge[i] = malloc(sizeof(char) * row_size);
-		if (!sponge[i])
-		{
-			free(sponge);
-			return;
-		}
-	}
+	sponge = make_sub(sponge, row_size);
+
 	make_menger(level, 1, sponge);
 	print_menger(sponge, row_size);
 	for (i = 0; i < row_size; i++)
