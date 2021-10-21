@@ -1,5 +1,8 @@
 # Notes on the problem
 
+## CURRENT BUG TO FIX
+Works as long as next line is first available space, but need way to reset starting j of previous lines
+
 ## Output
 *Oh the things that are unsaid*
 - One correct configuration per line
