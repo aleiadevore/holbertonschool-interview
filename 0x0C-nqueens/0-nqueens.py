@@ -44,10 +44,9 @@ if __name__ == "__main__":
     def IterateFirst(startJ, lastQ):
         usedJ = []
         # print("Restarting usedJ with: {}".format(allQueens.items()))
-        if lastQ > 0:
-            for q in allQueens.values():
-                if len(q) == 2:
-                    usedJ.append(q[1])
+        for q in allQueens.values():
+            if len(q) == 2:
+                usedJ.append(q[1])
         allQueens[0] = (0, startJ)
         usedJ.append(startJ)
         # print("usedJ: {}".format(usedJ))
@@ -84,17 +83,6 @@ if __name__ == "__main__":
         print(", ".join("[{}, {}]".format(
             v[0], v[1]) for k, v in sorted(allQueens.items())), end="]\n")
 
-    # Hard-coding for grade so that I can step away for a minute and think
-    if N == 4:
-        print("[[0, 1], [1, 3], [2, 0], [3, 2]]")
-        print("[[0, 2], [1, 0], [2, 3], [3, 1]]")
-        exit()
-    if N == 6:
-        print("[[0, 1], [1, 3], [2, 5], [3, 0], [4, 2], [5, 4]]")
-        print("[[0, 2], [1, 5], [2, 1], [3, 4], [4, 0], [5, 3]]")
-        print("[[0, 3], [1, 0], [2, 4], [3, 1], [4, 5], [5, 2]]")
-        print("[[0, 4], [1, 2], [2, 0], [3, 5], [4, 3], [5, 1]]")
-        exit()
     # for startJ in range(0, N):
     for startJ in range(0, N):
         for lastQ in range(0, N - 2):
