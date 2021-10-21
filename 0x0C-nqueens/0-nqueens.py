@@ -19,20 +19,45 @@ if __name__ == "__main__":
     """First approach -- brute force and backtracking"""
     allQueens = dict()
 
-    def ResetDict():
+    def ResetDict(lastQ):
         # Create dict to store locations of queens
-        for i in range(0, N):
+        # print("\n\n")
+        for i in range(N - 1, lastQ, -1):
+            # print(i)
             allQueens[i] = ()
+        # print(allQueens)
 
-    def IterateFirst(startJ):
+    def DiagDetect(i, j):
+        k = j
+        # checks left
+        for Qi in range(i - 1, -1, -1):
+            if allQueens[Qi][1] == j - 1:
+                return False
+            j -= 1
+        # checks right
+        for Qi in range(i - 1, -1, -1):
+            if allQueens[Qi][1] == k + 1:
+                return False
+            k += 1
+        return True
+
+    def IterateFirst(startJ, lastQ):
         usedJ = []
+        for q in allQueens.values():
+            if len(q) == 2:
+                usedJ.append(q[1])
         allQueens[0] = (0, startJ)
         usedJ.append(startJ)
+        # Quick diag check for main lines. Replace with diag check method
 
-        for i in range(1, N):
+        for i in range(lastQ + 1, N):
+            # print("i is {}".format(i))
             if len(allQueens[i - 1]) != 2:
                 # print("Resetting")
                 return False
+            # Rather than resetting whole thing, reset last
+            # placed queen until its j == N - 1
+            # Will probably need to be recursive
             for j in range(0, N):
                 # print("[{}, {}]".format(i, j))
                 if j in usedJ:
@@ -43,6 +68,9 @@ if __name__ == "__main__":
                     if j == prevJ - 1 or j == prevJ + 1:
                         # print("j is {} and prevJ is {}".format(j, prevJ))
                         continue
+                if DiagDetect(i, j) is False:
+                    # print("False")
+                    continue
                 allQueens[i] = (i, j)
                 usedJ.append(j)
                 if (i == N - 1):
@@ -52,10 +80,10 @@ if __name__ == "__main__":
     def PrintDict():
         print("[", end="")
         print(", ".join("[{}, {}]".format(
-            v[0], v[1]) for k, v in allQueens.items()), end="]\n")
+            v[0], v[1]) for k, v in sorted(allQueens.items())), end="]\n")
 
     for startJ in range(0, N):
-        # print("In outer loop, startJ is {}".format(startJ))
-        ResetDict()
-        if IterateFirst(startJ):
-            PrintDict()
+        for lastQ in range(0, N - 2):
+            ResetDict(lastQ)
+            if IterateFirst(startJ, lastQ):
+                PrintDict()
