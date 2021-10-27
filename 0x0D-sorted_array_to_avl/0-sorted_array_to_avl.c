@@ -16,7 +16,9 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 {
 	avl_t *root = NULL;
 
-	root = recursive_call(array, 0, size - 1);
+	if (!array)
+		return (NULL);
+	root = recursive_call(array, 0, size - 1, NULL);
 	return (root);
 }
 
@@ -25,11 +27,12 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
  * @array: array to turn into tree
  * @start: starting index
  * @end: ending index
+ * @parent: parent of new node
  *
  * Return: root of tree
  */
 
-avl_t *recursive_call(int *array, int start, int end)
+avl_t *recursive_call(int *array, int start, int end, avl_t *parent)
 {
 	int mid;
 	avl_t *root = NULL;
@@ -40,12 +43,12 @@ avl_t *recursive_call(int *array, int start, int end)
 
 	mid = (start + end) / 2;
 	/*printf("Mid: %d\n", mid);*/
-	root = newNode(array[mid]);
+	root = newNode(array[mid], parent);
 	if (!root)
 		return (NULL);
 
-	root->left = recursive_call(array, start, mid - 1);
-	root->right = recursive_call(array, mid + 1, end);
+	root->left = recursive_call(array, start, mid - 1, root);
+	root->right = recursive_call(array, mid + 1, end, root);
 
 	return (root);
 }
@@ -53,11 +56,12 @@ avl_t *recursive_call(int *array, int start, int end)
 /**
  * newNode - creates a new node
  * @n: n value of node
+ * @parent: parent of new node
  *
  * Return: pointer to node
  */
 
-avl_t *newNode(int n)
+avl_t *newNode(int n, avl_t *parent)
 {
 	avl_t *node = NULL;
 
@@ -67,8 +71,7 @@ avl_t *newNode(int n)
 	node->n = n;
 	node->left = NULL;
 	node->right = NULL;
-
-	/*printf("Created node %d\n", node->n);*/
+	node->parent = parent;
 
 	return (node);
 }
