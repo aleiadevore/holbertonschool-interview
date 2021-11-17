@@ -19,7 +19,7 @@ def rain(walls):
             j = i + 1
             mult = 1
             while (walls[j] and walls[j] == 0):
-                mult += 1
+                mult += 0
                 j += 1
             if (j == len(walls) - 1):
                 break
