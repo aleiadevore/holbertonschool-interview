@@ -17,13 +17,11 @@ def rain(walls):
             continue
         else:
             j = i + 1
-            mult = 1
-            while (walls[j] and walls[j] == 0):
-                mult += 0
+            mult = 0
+            while (walls[j] == 0 and j < len(walls) - 1):
+                mult += 1
                 j += 1
-            if (j == len(walls) - 1):
-                break
-            if (walls[i] > walls[j]):
+            if (walls[i] < walls[j]):
                 rain += (walls[i] * mult)
             else:
                 rain += (walls[j] * mult)
