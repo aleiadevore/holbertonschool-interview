@@ -3,6 +3,7 @@
 Determines rain held between walls
 """
 
+
 def checkpeak(walls, i):
     val = walls[i]
 
@@ -15,6 +16,7 @@ def checkpeak(walls, i):
             j += 1
         val -= 1
     return -1
+
 
 def rain(walls):
     rain = 0
@@ -39,18 +41,19 @@ def rain(walls):
                 if walls[i] < walls[peak]:
                     add = walls[i]
                 else:
-                    add = walls[j]
+                    add = walls[peak]
+                # print("add: {0}".format(add))
                 while (j < peak):
                     rain += add - walls[j]
                     j += 1
                 i = peak
             else:
                 if walls[i] < walls[j]:
-                    #print("{0} += {1} * {2}".format(rain, walls[i], mult))
+                    # print("{0} += {1} * {2}".format(rain, walls[i], mult))
                     rain += (walls[i] * mult)
                 else:
-                    #print("{0} += {1} * {2}".format(rain, walls[j], mult))
+                    # print("{0} += {1} * {2}".format(rain, walls[j], mult))
                     rain += (walls[j] * mult)
                 i += 1
-        #print("Rain: {0}".format(rain))
+        # print("Rain: {0}".format(rain))
     return rain
