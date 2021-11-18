@@ -10,7 +10,7 @@ def checkpeak(walls, i):
         j = i + 1
         # print("val: {0}".format(val))
         while (j < len(walls)):
-            if walls[j] > val:
+            if walls[j] >= val:
                 return j
             j += 1
         val -= 1
@@ -34,7 +34,7 @@ def rain(walls):
                 j += 1
             peak = checkpeak(walls, i)
             if peak > 0:
-                # print("Peak: {0}".format(peak))
+                print("Peak: {0}".format(peak))
                 j = i + 1
                 if walls[i] < walls[peak]:
                     add = walls[i]
