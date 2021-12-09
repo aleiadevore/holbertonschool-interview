@@ -11,8 +11,6 @@ def count_words(subreddit, word_list, after=None, answer_dict={}):
     # subreddit: subreddit to check
     # word_list: set of keywords to check for
 
-    answer_dict = OrderedDict(answer_dict)
-
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     headers = {"User-Agent": "user"}
     parameters = {"show": "all", "next": "next", "after": after}
@@ -56,8 +54,9 @@ def count_words(subreddit, word_list, after=None, answer_dict={}):
 
     if not after:
         # no more pages to check, print answers
+        alph_dict = OrderedDict(sorted(answer_dict.items()))
         for key, value in sorted(
-            answer_dict.items(),
+            alph_dict.items(),
                 key=lambda item: item[1], reverse=True):
             if value != 0:
                 print("{}: {}".format(key, value))
