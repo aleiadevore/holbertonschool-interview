@@ -5,6 +5,7 @@ and prints a sorted count of given keywords
 (case-insensitive, delimited by spaces
 """
 import json
+from json.decoder import JSONDecodeError
 import requests
 
 
@@ -14,17 +15,19 @@ def count_words(subreddit, word_list, after=None, answer_dict={}):
     subreddit: subreddit to check
     word_list: set of keywords to check for
     """
-    
-    url = "https://www.reddit.com/r/{}hot.json".format(subreddit)
+
+    url = "https://www.reddit.com/r/{}/hot.json".format(
+                subreddit)
     headers = {"User-Agent": "user"}
     parameters = {"show": "all", "next": "next", "after": after}
 
     try:
         response = requests.get(url, headers=headers,
-            allow_redirects=False, params=parameters).json()
-    except:
+                                allow_redirects=False,
+                                params=parameters).json()
+    except ValueError:
         return
-    
+
     for item in word_list:
         # adding all keywords to answer_dict with a count of 0
         if item.lower() not in answer_dict:
@@ -33,7 +36,7 @@ def count_words(subreddit, word_list, after=None, answer_dict={}):
     # Accounting for errors
     if "data" not in response:
         return
-    
+
     for i in response.get("data")["children"]:
         # Get all titles, split by space
         check_list = i["data"]["title"].split()
@@ -50,12 +53,11 @@ def count_words(subreddit, word_list, after=None, answer_dict={}):
         if not after:
             # no more pages to check, print answers
             for key, value in sorted(
-                answer_dict.items(),
-                key=lambda item: item[1], reverse=True):
+                                answer_dict.items(),
+                                key=lambda item: item[1], reverse=True):
                 if value != 0:
-                    # If keyword was found in titles
-                    print("{}: {}").format(key, value)
+                    print("{}: {}".format(key, value))
             return
-        
+
         # If there are more pages to check, make recursive call
         return count_words(subreddit, word_list, after, answer_dict)
