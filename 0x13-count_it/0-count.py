@@ -15,17 +15,23 @@ def count_words(subreddit, word_list, after=None, answer_dict={}):
     parameters = {"show": "all", "next": "next", "after": after}
 
     try:
-            response = requests.get(url, headers=headers,
-                                    allow_redirects=False,
-                                    params=parameters).json()
-    except:
-            return
+        response = requests.get(url, headers=headers,
+                                allow_redirects=False,
+                                params=parameters).json()
+    except ValueError:
+        return
 
+    word_count = {}
     for item in word_list:
         # adding all keywords to answer_dict with a count of 0
+        """Add in count dict"""
         if item.lower() not in answer_dict:
             # adding all keywords to answer_dict with a count of 0
             answer_dict[item.lower()] = 0
+        if item.lower() not in word_count:
+            word_count[item.lower()] = 1
+        else:
+            word_count[item.lower()] += 1
 
     # Accounting for errors
     if "data" not in response:
@@ -39,7 +45,8 @@ def count_words(subreddit, word_list, after=None, answer_dict={}):
             for item in check_list:
                 # If keyword found, increase count by 1
                 if key == item.lower():
-                    answer_dict[key] += 1
+                    # answer_dict[key] += 1
+                    answer_dict[key] += word_count[key]
 
     # Saving next page
     after = response.get("data").get("after")
@@ -49,8 +56,8 @@ def count_words(subreddit, word_list, after=None, answer_dict={}):
         for key, value in sorted(
             answer_dict.items(),
                 key=lambda item: item[1], reverse=True):
-                if value != 0:
-                    print("{}: {}".format(key, value))
+            if value != 0:
+                print("{}: {}".format(key, value))
         return
 
     # If there are more pages to check, make recursive call
