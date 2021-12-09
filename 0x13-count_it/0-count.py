@@ -1,12 +1,11 @@
 #!/usr/bin/python3
 """ Prints number of keywords given for a subreddits hot list """
 import json
-from json.decoder import JSONDecodeError
 import requests
 
 
 def count_words(subreddit, word_list, after=None, answer_dict={}):
-    """Prints number of keywords given for a subreddit's hot list"""
+    """ Prints number of keywords given for a subreddit's hot list """
 
     # subreddit: subreddit to check
     # word_list: set of keywords to check for
