@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""queries the Reddit API, parses the title of all hot articles,
-and prints a sorted count of given keywords"""
+""" Prints number of keywords given for a subreddits hot list """
 import json
 from json.decoder import JSONDecodeError
 import requests
@@ -8,6 +7,7 @@ import requests
 
 def count_words(subreddit, word_list, after=None, answer_dict={}):
     """Prints number of keywords given for a subreddit's hot list"""
+
     # subreddit: subreddit to check
     # word_list: set of keywords to check for
 
