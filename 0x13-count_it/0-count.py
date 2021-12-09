@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ Prints number of keywords given for a subreddits hot list """
+from collections import OrderedDict
 import json
 import requests
 
@@ -9,6 +10,8 @@ def count_words(subreddit, word_list, after=None, answer_dict={}):
 
     # subreddit: subreddit to check
     # word_list: set of keywords to check for
+
+    answer_dict = OrderedDict(answer_dict)
 
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     headers = {"User-Agent": "user"}
