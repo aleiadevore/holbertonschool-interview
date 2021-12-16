@@ -41,6 +41,48 @@ int binary_tree_balance(const binary_tree_t *tree)
 	return (balance);
 }
 
+/**
+ * sort - sorts new tree
+ * @root: root of tree
+ *
+ * Return: tree
+ */
+
+binary_tree_t *sort(binary_tree_t *root)
+{
+	binary_tree_t *min = root;
+	int balance = binary_tree_balance(root), hold;
+
+	printf("Balance: %d\n", balance);
+	if (balance == 1)
+	{
+		hold = min->n;
+		min->n = min->left->n;
+		min->left->n = hold;
+		min = min->left;
+	}
+	while (min->left)
+	{
+		if (min->n < min->left->n)
+		{
+			hold = min->n;
+			min->n = min->left->n;
+			min->left->n = hold;
+			min = min->left;
+		}
+		else if (min->right && min->n < min->right->n)
+		{
+			hold = min->n;
+			min->n = min->right->n;
+			min->right->n = hold;
+			min = min->right;
+		}
+		else
+			break;
+	}
+	return (root);
+}
+
 
 /**
  * heap_extract - extracts root of max heap
@@ -52,7 +94,7 @@ int binary_tree_balance(const binary_tree_t *tree)
 int heap_extract(heap_t **root)
 {
 	heap_t *min = *root, *tmp = NULL;
-	int ans, i, leaves = 1024, hold = 0;
+	int ans, i, leaves = 1024;
 	int *arr;
 
 	if (!root || !(*root))
@@ -83,25 +125,9 @@ int heap_extract(heap_t **root)
 	else
 		tmp->right = NULL;
 	free(min);
-	for (min = *root; min->left;)
-	{
-		if (min->n < min->left->n && min->n != 56)
-		{
-			hold = min->n;
-			min->n = min->left->n;
-			min->left->n = hold;
-			min = min->left;
-		}
-		else if (min->right && min->n < min->right->n)
-		{
-			hold = min->n;
-			min->n = min->right->n;
-			min->right->n = hold;
-			min = min->right;
-		}
-		else
-			break;
-	}
+
+	*root = sort(*root);
+
 	free(arr);
 	return (ans);
 }
