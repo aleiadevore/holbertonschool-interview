@@ -53,12 +53,12 @@ binary_tree_t *sort(binary_tree_t *root)
 	binary_tree_t *min = root;
 	int balance = binary_tree_balance(root), hold;
 
-	if (balance == 1)
+	if (balance == 0)
 	{
 		hold = min->n;
-		min->n = min->left->n;
-		min->left->n = hold;
-		min = min->left;
+		min->n = min->right->n;
+		min->right->n = hold;
+		min = min->right;
 	}
 	while (min->left)
 	{
