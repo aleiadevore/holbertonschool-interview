@@ -1,72 +1,104 @@
 #include "binary_trees.h"
 
-int *heapify(int *arr, int size, int i)
-{
-    int largest = i, hold;
-    int l = 2 * i + 1;
-    int r = 2 * i + 2;
 
-    if (l < size && arr[l] > arr[largest])
-        largest = l;
-    if (r < size && arr[r] > arr[largest])
-        largest = r;
-    if (largest != i)
-    {
-        hold = arr[i];
-        arr[i] = arr[largest];
-        arr[largest] = hold;
-        heapify(arr, size, largest);
-    }
-  return arr;
+/**
+ * height_finder - measure the height of binary tree
+ * @tree: pointer to root node of tree to measure height
+ * Return: if tree is NULL return 0
+ */
+
+size_t height_finder(const binary_tree_t *tree)
+{
+	size_t left, right;
+
+	if (tree == NULL)
+		return (0);
+	left = height_finder(tree->left);
+	right = height_finder(tree->right);
+	if (left > right)
+	return (left + 1);
+	else
+	return (right + 1);
 }
 
+/**
+* binary_tree_preorder - traverses in preorder
+*  @tree: tree to traverse
+*  @func: function to use to print
+*  Return: void
+*/
 
-int *to_array(int *arr, int n, int a_size)
+void binary_tree_preorder(binary_tree_t *tree, binary_tree_t *root)
 {
-    int i;
+    binary_tree_t *min = NULL;
 
-    for (i = 0; i < a_size; i++)
+    if (!tree)
+		return;
+    if (tree->left && !(tree)->right)
     {
-        if (arr[i] == -2667)
+        tree = tree->left;
+        root->n = (tree)->n;
+        min = (tree)->parent;
+        if (min->left == (tree))
+            min->left = NULL;
+        else
+            min->right = NULL;
+        free(tree);
+        
+        return;
+    }
+    if (!(tree)->parent)
+    {
+        binary_tree_preorder((tree)->left, root);
+	    binary_tree_preorder((tree)->right, root);
+    }
+    else if ((tree)->left && (tree)->right)
+    {
+        binary_tree_preorder((tree)->left, root);
+	    binary_tree_preorder((tree)->right, root);
+    }
+    else if (tree->parent->right && tree->parent->left != tree)
+    {
+        for (min = root; min->left && min->right; min = min->right)
+            ;
+        if (min == tree)
         {
-            arr[i] = n;
-            return (arr);
+            root->n = (tree)->n;
+            min = (tree)->parent;
+            if (min->left == (tree))
+                min->left = NULL;
+            else
+                min->right = NULL;
+            free(tree);
+            return;
+        }
+        if (min->left == tree)
+        {
+            root = min->left;
+            root->n = (tree)->n;
+            min = (tree)->parent;
+            if (min->left == (tree))
+                min->left = NULL;
+            else
+                min->right = NULL;
+            free(tree);
+            return;
+        }
+        if (min->right == tree)
+        {
+            root = min->right;
+            root->n = (tree)->n;
+            min = (tree)->parent;
+            if (min->left == (tree))
+                min->left = NULL;
+            else
+                min->right = NULL;
+            free(tree);
+            return;
         }
     }
-    return (arr);
-}
+        return;
 
-int *binary_tree_preorder(const binary_tree_t *tree, int *arr, int a_size)
-{
-	if (!tree)
-		return arr;
-	arr = to_array(arr, tree->n, a_size);
-	binary_tree_preorder(tree->left, arr, a_size);
-    binary_tree_preorder(tree->right, arr, a_size);
-    return arr;
-}
-
-int *build_tree(binary_tree_t *tree, int *arr, int a_size, int layer)
-{
-    binary_tree_t *node = tree;
-    int i = 0, count = 0;
-
-    if (!tree || layer == a_size)
-		return arr;
-    if (layer != 0)
-    {
-        for (layer = 0; i < a_size && node->parent; layer++)
-        {
-            count += (layer * layer - (layer - layer));
-            if (node->parent->right->n == node->n)
-                count++;
-            node = node->parent;
-        }
-    }
-	tree->n = arr[count];
-	build_tree(tree->left, arr, a_size, 1);
-    build_tree(tree->right, arr, a_size, 1);
-    return arr;
 }
 
 /**
@@ -78,7 +110,7 @@ int *build_tree(binary_tree_t *tree, int *arr, int a_size, int layer)
 int binary_tree_is_full(const binary_tree_t *tree)
 {
 	if (tree == NULL)
-		return (0);
+		return 0;
 
 	if (tree->left == NULL && tree->right == NULL)
 		return (1);
@@ -90,36 +122,21 @@ int binary_tree_is_full(const binary_tree_t *tree)
 
 int heap_extract(heap_t **root)
 {
-    heap_t *min = *root, *min_p = NULL;
-    int ans = (*root)->n, i, leaves = 1024, hold = 0, check;
+    heap_t *min = *root;
+    int ans = (*root)->n, i, leaves = 1024, hold = 0;
     int *arr;
 
-    /*leaves = binary_tree_leaves(*root);*/
+    if (!(*root))
+        return 0;
+
     arr = malloc(sizeof(int) * leaves);
     for (i = 0; i < leaves; i++)
         arr[i] = -2667;
 
+    hold = height_finder(*root);
+    printf("Height: %d\n", hold);
     /* Extract root and replact with other node */
-    check = binary_tree_is_full(*root);
-    if (check == 0)
-    {
-        while (min->left)
-            min = min->left;
-        min_p = min->parent;
-    }
-    else
-    {
-        while (min->right)
-            min = min->right;
-        min_p = min->parent;
-    }
-    
-    (*root)->n = min->n;
-    if (check == 0)
-        min_p->left = NULL;
-    else
-        min_p->right = NULL;
-    free(min);
+    binary_tree_preorder(*root, *root);
 
     for (min = *root; min->left;)
     {
@@ -141,18 +158,6 @@ int heap_extract(heap_t **root)
             break;
     }
 
-    /* Heapify */
-    /*arr = binary_tree_preorder(*root, arr, leaves);
-    for (i = 0; i < leaves && arr[i] != -2667; i++)
-        size++;
-    for (i = size / 2 - 1; i >= 0; i--)
-        arr = heapify(arr, 90, i);
-    for (i = 0; i < size && arr[i] != -2667; i++)
-        printf("%d\n", arr[i]);*/
-    
-    /*build_tree(*root, arr, size, 0);*/
-
-    /* Turn into binary tree */
     free(arr);
     return ans;
 }
