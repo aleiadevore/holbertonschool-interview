@@ -30,75 +30,73 @@ size_t height_finder(const binary_tree_t *tree)
 
 void binary_tree_preorder(binary_tree_t *tree, binary_tree_t *root)
 {
-    binary_tree_t *min = NULL;
+	binary_tree_t *min = NULL;
 
-    if (!tree)
+	if (!tree)
 		return;
-    if (tree->left && !(tree)->right)
-    {
-        tree = tree->left;
-        root->n = (tree)->n;
-        min = (tree)->parent;
-        if (min->left == (tree))
-            min->left = NULL;
-        else
-            min->right = NULL;
-        free(tree);
-        
-        return;
-    }
-    if (!(tree)->parent)
-    {
-        binary_tree_preorder((tree)->left, root);
-	    binary_tree_preorder((tree)->right, root);
-    }
-    else if ((tree)->left && (tree)->right)
-    {
-        binary_tree_preorder((tree)->left, root);
-	    binary_tree_preorder((tree)->right, root);
-    }
-    else if (tree->parent->right && tree->parent->left != tree)
-    {
-        for (min = root; min->left && min->right; min = min->right)
-            ;
-        if (min == tree)
-        {
-            root->n = (tree)->n;
-            min = (tree)->parent;
-            if (min->left == (tree))
-                min->left = NULL;
-            else
-                min->right = NULL;
-            free(tree);
-            return;
-        }
-        if (min->left == tree)
-        {
-            root = min->left;
-            root->n = (tree)->n;
-            min = (tree)->parent;
-            if (min->left == (tree))
-                min->left = NULL;
-            else
-                min->right = NULL;
-            free(tree);
-            return;
-        }
-        if (min->right == tree)
-        {
-            root = min->right;
-            root->n = (tree)->n;
-            min = (tree)->parent;
-            if (min->left == (tree))
-                min->left = NULL;
-            else
-                min->right = NULL;
-            free(tree);
-            return;
-        }
-    }
-        return;
+	if (tree->left && !(tree)->right)
+	{
+		tree = tree->left;
+		root->n = (tree)->n;
+		min = (tree)->parent;
+		if (min->left == (tree))
+		min->left = NULL;
+		else
+		min->right = NULL;
+		free(tree);
 
+		return;
+	}
+	if (!(tree)->parent)
+	{
+		binary_tree_preorder((tree)->left, root);
+		binary_tree_preorder((tree)->right, root);
+	}
+	else if ((tree)->left && (tree)->right)
+	{
+		binary_tree_preorder((tree)->left, root);
+		binary_tree_preorder((tree)->right, root);
+	}
+	else if (tree->parent->right && tree->parent->left != tree)
+	{
+		for (min = root; min->left && min->right; min = min->right)
+			;
+		if (min == tree)
+		{
+			root->n = (tree)->n;
+			min = (tree)->parent;
+			if (min->left == (tree))
+			min->left = NULL;
+			else
+			min->right = NULL;
+			free(tree);
+			return;
+		}
+		if (min->left == tree)
+		{
+		root = min->left;
+		root->n = (tree)->n;
+		min = (tree)->parent;
+		if (min->left == (tree))
+			min->left = NULL;
+		else
+			min->right = NULL;
+		free(tree);
+		return;
+		}
+		if (min->right == tree)
+		{
+		root = min->right;
+		root->n = (tree)->n;
+		min = (tree)->parent;
+		if (min->left == (tree))
+			min->left = NULL;
+		else
+			min->right = NULL;
+		free(tree);
+		return;
+		}
+	}
 }
 
 /**
@@ -110,7 +108,7 @@ void binary_tree_preorder(binary_tree_t *tree, binary_tree_t *root)
 int binary_tree_is_full(const binary_tree_t *tree)
 {
 	if (tree == NULL)
-		return 0;
+		return (0);
 
 	if (tree->left == NULL && tree->right == NULL)
 		return (1);
@@ -122,40 +120,41 @@ int binary_tree_is_full(const binary_tree_t *tree)
 
 int heap_extract(heap_t **root)
 {
-    heap_t *min = *root;
-    int ans = (*root)->n, i, leaves = 1024, hold = 0;
-    int *arr;
+	heap_t *min = *root;
+	int ans, i, leaves = 1024, hold = 0;
+	int *arr;
 
-    if (!(*root) || !root)
-        return 0;
+	if (!root || !(*root))
+		return (0);
+	ans = (*root)->n;
 
-    arr = malloc(sizeof(int) * leaves);
-    for (i = 0; i < leaves; i++)
-        arr[i] = -2667;
+	arr = malloc(sizeof(int) * leaves);
+	for (i = 0; i < leaves; i++)
+		arr[i] = -2667;
 
-    /* Extract root and replact with other node */
-    binary_tree_preorder(*root, *root);
+	/* Extract root and replact with other node */
+	binary_tree_preorder(*root, *root);
 
-    for (min = *root; min->left;)
-    {
-        if (min->n < min->left->n)
-        {
-            hold = min->n;
-            min->n = min->left->n;
-            min->left->n = hold;
-            min = min->left; 
-        }
-        else if (min->n < min->right->n)
-        {
-            hold = min->n;
-            min->n = min->right->n;
-            min->right->n = hold;
-            min = min->right;
-        }
-        else
-            break;
-    }
+	for (min = *root; min->left;)
+	{
+		if (min->n < min->left->n)
+		{
+			hold = min->n;
+			min->n = min->left->n;
+			min->left->n = hold;
+			min = min->left;
+		}
+		else if (min->n < min->right->n)
+		{
+			hold = min->n;
+			min->n = min->right->n;
+			min->right->n = hold;
+			min = min->right;
+		}
+		else
+			break;
+	}
 
-    free(arr);
-    return ans;
+	free(arr);
+	return (ans);
 }
