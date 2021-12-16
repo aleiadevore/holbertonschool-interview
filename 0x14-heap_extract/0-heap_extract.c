@@ -41,108 +41,12 @@ int binary_tree_balance(const binary_tree_t *tree)
 	return (balance);
 }
 
-/**
-* binary_tree_preorder - traverses in preorder
-*  @tree: tree to traverse
-*  @func: function to use to print
-*  Return: void
-*/
-
-void binary_tree_preorder(binary_tree_t *tree, binary_tree_t *root)
-{
-	binary_tree_t *min = NULL;
-
-	if (!tree)
-		return;
-	if (tree->left && !(tree)->right)
-	{
-		tree = tree->left;
-		root->n = (tree)->n;
-		min = (tree)->parent;
-		if (min->left == (tree))
-		min->left = NULL;
-		else
-		min->right = NULL;
-		free(tree);
-
-		return;
-	}
-	if (!(tree)->parent)
-	{
-		binary_tree_preorder((tree)->left, root);
-		binary_tree_preorder((tree)->right, root);
-	}
-	else if ((tree)->left && (tree)->right)
-	{
-		binary_tree_preorder((tree)->left, root);
-		binary_tree_preorder((tree)->right, root);
-	}
-	else if (tree->parent->right && tree->parent->left != tree)
-	{
-		for (min = root; min->left && min->right; min = min->right)
-			;
-		if (min == tree)
-		{
-			root->n = (tree)->n;
-			min = (tree)->parent;
-			if (min->left == (tree))
-			min->left = NULL;
-			else
-			min->right = NULL;
-			free(tree);
-			return;
-		}
-		if (min->left == tree)
-		{
-		root = min->left;
-		root->n = (tree)->n;
-		min = (tree)->parent;
-		if (min->left == (tree))
-			min->left = NULL;
-		else
-			min->right = NULL;
-		free(tree);
-		return;
-		}
-		if (min->right == tree)
-		{
-		root = min->right;
-		root->n = (tree)->n;
-		min = (tree)->parent;
-		if (min->left == (tree))
-			min->left = NULL;
-		else
-			min->right = NULL;
-		free(tree);
-		return;
-		}
-	}
-}
-
-/**
- * binary_tree_is_full - checks if binary tree is full
- * @tree: pointer to the root node of the tree to check
- * Return: 0 if tree is NULL or not full
- */
-
-int binary_tree_is_full(const binary_tree_t *tree)
-{
-	if (tree == NULL)
-		return (0);
-
-	if (tree->left == NULL && tree->right == NULL)
-		return (1);
-	if ((tree->left) && (tree->right))
-		return (binary_tree_is_full(tree->left) &&
-		binary_tree_is_full(tree->right));
-	return (0);
-}
 
 /**
  * heap_extract - extracts root of max heap
  * @root: root node of binary search tree
- * 
- * Return: value of node deleted 
+ *
+ * Return: value of node deleted
  */
 
 int heap_extract(heap_t **root)
@@ -154,14 +58,9 @@ int heap_extract(heap_t **root)
 	if (!root || !(*root))
 		return (0);
 	ans = (*root)->n;
-
 	arr = malloc(sizeof(int) * leaves);
 	for (i = 0; i < leaves; i++)
 		arr[i] = -2667;
-
-	/* Extract root and replact with other node */
-	/*binary_tree_preorder(*root, *root);*/
-
 	while (min != NULL)
 	{
 		if (!min->left && !min->right)
@@ -171,12 +70,11 @@ int heap_extract(heap_t **root)
 		else
 			min = min->left;
 	}
-
 	if (!min->parent)
 	{
 		ans = min->n;
 		free(min);
-		return ans;
+		return (ans);
 	}
 	tmp = min->parent;
 	(*root)->n = min->n;
@@ -185,7 +83,6 @@ int heap_extract(heap_t **root)
 	else
 		tmp->right = NULL;
 	free(min);
-
 	for (min = *root; min->left;)
 	{
 		if (min->n < min->left->n)
@@ -195,7 +92,7 @@ int heap_extract(heap_t **root)
 			min->left->n = hold;
 			min = min->left;
 		}
-		else if (min->n < min->right->n)
+		else if (min->right && min->n < min->right->n)
 		{
 			hold = min->n;
 			min->n = min->right->n;
@@ -205,7 +102,6 @@ int heap_extract(heap_t **root)
 		else
 			break;
 	}
-
 	free(arr);
 	return (ans);
 }
