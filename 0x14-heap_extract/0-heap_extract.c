@@ -53,7 +53,6 @@ binary_tree_t *sort(binary_tree_t *root)
 	binary_tree_t *min = root;
 	int balance = binary_tree_balance(root), hold;
 
-	printf("Balance: %d\n", balance);
 	if (balance == 1)
 	{
 		hold = min->n;
