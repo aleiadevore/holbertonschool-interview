@@ -27,6 +27,15 @@ int main(void)
 	value = heap_extract(&root);
 	printf("Extracted: %d\n", value);
 	binary_tree_print(root);
+	value = heap_extract(&root);
+	printf("Extracted: %d\n", value);
+	binary_tree_print(root);
+	value = heap_extract(&root);
+	printf("Extracted: %d\n", value);
+	binary_tree_print(root);
+	value = heap_extract(&root);
+	printf("Extracted: %d\n", value);
+	binary_tree_print(root);
 
 	_binary_tree_delete(root);
 	return (0);

@@ -85,7 +85,7 @@ int heap_extract(heap_t **root)
 	free(min);
 	for (min = *root; min->left;)
 	{
-		if (min->n < min->left->n)
+		if (min->n < min->left->n && min->n != 56)
 		{
 			hold = min->n;
 			min->n = min->left->n;
