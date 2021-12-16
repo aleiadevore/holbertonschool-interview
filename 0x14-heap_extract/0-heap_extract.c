@@ -126,15 +126,13 @@ int heap_extract(heap_t **root)
     int ans = (*root)->n, i, leaves = 1024, hold = 0;
     int *arr;
 
-    if (!(*root))
+    if (!(*root) || !root)
         return 0;
 
     arr = malloc(sizeof(int) * leaves);
     for (i = 0; i < leaves; i++)
         arr[i] = -2667;
 
-    hold = height_finder(*root);
-    printf("Height: %d\n", hold);
     /* Extract root and replact with other node */
     binary_tree_preorder(*root, *root);
 
