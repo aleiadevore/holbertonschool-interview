@@ -22,6 +22,26 @@ size_t height_finder(const binary_tree_t *tree)
 }
 
 /**
+ * binary_tree_balance - returns balance factor
+ * @tree: root of tree
+ *
+ * Return: balance factor
+ */
+
+int binary_tree_balance(const binary_tree_t *tree)
+{
+	int balance, l, r;
+
+	if (!tree)
+		return (0);
+	l = height_finder(tree->left);
+	r = height_finder(tree->right);
+	balance = l - r;
+
+	return (balance);
+}
+
+/**
 * binary_tree_preorder - traverses in preorder
 *  @tree: tree to traverse
 *  @func: function to use to print
@@ -118,9 +138,16 @@ int binary_tree_is_full(const binary_tree_t *tree)
 	return (0);
 }
 
+/**
+ * heap_extract - extracts root of max heap
+ * @root: root node of binary search tree
+ * 
+ * Return: value of node deleted 
+ */
+
 int heap_extract(heap_t **root)
 {
-	heap_t *min = *root;
+	heap_t *min = *root, *tmp = NULL;
 	int ans, i, leaves = 1024, hold = 0;
 	int *arr;
 
@@ -133,7 +160,31 @@ int heap_extract(heap_t **root)
 		arr[i] = -2667;
 
 	/* Extract root and replact with other node */
-	binary_tree_preorder(*root, *root);
+	/*binary_tree_preorder(*root, *root);*/
+
+	while (min != NULL)
+	{
+		if (!min->left && !min->right)
+			break;
+		if (binary_tree_balance(min) <= 0)
+			min = min->right;
+		else
+			min = min->left;
+	}
+
+	if (!min->parent)
+	{
+		ans = min->n;
+		free(min);
+		return ans;
+	}
+	tmp = min->parent;
+	(*root)->n = min->n;
+	if (tmp->left == min)
+		tmp->left = NULL;
+	else
+		tmp->right = NULL;
+	free(min);
 
 	for (min = *root; min->left;)
 	{
