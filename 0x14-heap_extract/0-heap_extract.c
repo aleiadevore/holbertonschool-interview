@@ -87,6 +87,12 @@ int heap_extract(heap_t **root)
 		return (0);
 	ans = (*root)->n;
 
+	if (!(*root)->left && !(*root)->right)
+	{
+		free(*root);
+		*root = NULL;
+		return (ans);
+	}
 	while (min != NULL)
 	{
 		if (!min->left && !min->right)
