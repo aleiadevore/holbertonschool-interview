@@ -48,38 +48,26 @@ int binary_tree_balance(const binary_tree_t *tree)
  * Return: tree
  */
 
-binary_tree_t *sort(binary_tree_t *root)
+void sort(binary_tree_t *root)
 {
-	binary_tree_t *min = root;
-	int balance = binary_tree_balance(root), hold;
+	int hold;
+	heap_t *tmp;
 
-	if (balance == 0)
+	if (!root->left && !root->right)
+		return;
+
+	if (root->right && root->right->n > root->left->n)
+		tmp = root->right;
+	else
+		tmp = root->left;
+
+	if (root->n < tmp->n)
 	{
-		hold = min->n;
-		min->n = min->right->n;
-		min->right->n = hold;
-		min = min->right;
+		hold = root->n;
+		root->n = tmp->n;
+		tmp->n = hold;
+		sort(tmp);
 	}
-	while (min->left)
-	{
-		if (min->n < min->left->n)
-		{
-			hold = min->n;
-			min->n = min->left->n;
-			min->left->n = hold;
-			min = min->left;
-		}
-		else if (min->right && min->n < min->right->n)
-		{
-			hold = min->n;
-			min->n = min->right->n;
-			min->right->n = hold;
-			min = min->right;
-		}
-		else
-			break;
-	}
-	return (root);
 }
 
 
@@ -125,7 +113,7 @@ int heap_extract(heap_t **root)
 		tmp->right = NULL;
 	free(min);
 
-	*root = sort(*root);
+	sort(*root);
 
 	free(arr);
 	return (ans);
