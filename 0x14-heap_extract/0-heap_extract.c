@@ -81,15 +81,12 @@ void sort(binary_tree_t *root)
 int heap_extract(heap_t **root)
 {
 	heap_t *min = *root, *tmp = NULL;
-	int ans, i, leaves = 1024;
-	int *arr;
+	int ans;
 
 	if (!root || !(*root))
 		return (0);
 	ans = (*root)->n;
-	arr = malloc(sizeof(int) * leaves);
-	for (i = 0; i < leaves; i++)
-		arr[i] = -2667;
+
 	while (min != NULL)
 	{
 		if (!min->left && !min->right)
@@ -115,6 +112,5 @@ int heap_extract(heap_t **root)
 
 	sort(*root);
 
-	free(arr);
 	return (ans);
 }
