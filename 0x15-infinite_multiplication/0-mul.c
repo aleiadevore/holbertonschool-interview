@@ -55,7 +55,7 @@ int check_string(char *argv[])
 
 int main(int argc, char *argv[])
 {
-	int str_check;
+	int str_check, ans = 0;
 	/*int a[100], b[100];*/
 
 	if (argc != 3)
@@ -73,5 +73,5 @@ int main(int argc, char *argv[])
 		_putchar('\n');
 	}
 
-	return (1);
+	return (ans);
 }
