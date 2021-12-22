@@ -9,7 +9,7 @@
  */
 void print_error(void)
 {
-	char *e = "ERROR\n";
+	char *e = "Error\n";
 	int i;
 
 	for (i = 0; i < 6; i++)
