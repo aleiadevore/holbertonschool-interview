@@ -15,6 +15,6 @@ def rotate_2d_matrix(matrix):
     # *: unpacks each sublist
     # zip: transposes by making tuples with one item from each list
     new = list(zip(*reversed(matrix)))
-    for i in range(0, len(new) - 1):
-        for j in range(0, len(new[0]) - 1):
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
             matrix[i][j] = new[i][j]
