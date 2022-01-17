@@ -37,13 +37,11 @@ void merge(int *array, int l, int m, int r)
 	int n2 = r - m;
 	int L[n1], R[n2];
 
-	printf("Merging...\n");
-	/*printf("[left]: %d\n[right]: %d\n", array[l], array[r]);*/
-	printf("[left]: ");
+	/* Done equals next right */
 	for (i = 0; i < n1; i++)
 	{
 		L[i] = array[l + i];
-		if (i != n1 -1)
+		if (i != n1 - 1)
 			printf("%d, ", L[i]);
 		else
 			printf("%d", L[i]);
@@ -57,9 +55,7 @@ void merge(int *array, int l, int m, int r)
 		else
 			printf("%d\n", R[j]);
 	}
-
-	k = l;
-	for (i = 0, j = 0; i < n1 && j < n2; k++)
+	for (k = l, i = 0, j = 0; i < n1 && j < n2; k++)
 	{
 		if (L[i] <= R[j])
 		{
@@ -72,6 +68,7 @@ void merge(int *array, int l, int m, int r)
 			j++;
 		}
 	}
+	n = i;
 	while (i < n1)
 	{
 		array[k] = L[i];
@@ -106,6 +103,8 @@ void sort(int *array, int l, int r)
 		m = (l + r - 1) / 2;
 		sort(array, l, m);
 		sort(array, m + 1, r);
+		printf("Merging...\n");
+		printf("[left]: ");
 		merge(array, l, m, r);
 	}
 }
