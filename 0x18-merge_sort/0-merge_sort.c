@@ -68,7 +68,6 @@ void merge(int *array, int l, int m, int r)
 			j++;
 		}
 	}
-	n = i;
 	while (i < n1)
 	{
 		array[k] = L[i];
