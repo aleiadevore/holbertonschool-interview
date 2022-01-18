@@ -9,6 +9,26 @@
 */
 
 /**
+ * print_done - prints sorted section
+ * @array: array being sorted
+ * @n: starting index
+ * @k: ending index
+ * Return: NULL
+ */
+
+void print_done(int *array, int n, int k)
+{
+	printf("[Done]: ");
+	for (; n < k; n++)
+	{
+		if (n == k - 1)
+			printf("%d\n", array[n]);
+		else
+			printf("%d, ", array[n]);
+	}
+}
+
+/**
  * merge_sort - sorts array of int using merge sort algorithm
  * @array: array to sort
  * @size: size of array
@@ -32,12 +52,11 @@ void merge_sort(int *array, size_t size)
  */
 void merge(int *array, int l, int m, int r)
 {
-	int i, j, k, n;
+	int i, j, k;
 	int n1 = m - l + 1;
 	int n2 = r - m;
 	int L[1024], R[1024];
 
-	/* Done equals next right */
 	for (i = 0; i < n1; i++)
 	{
 		L[i] = array[l + i];
@@ -68,26 +87,11 @@ void merge(int *array, int l, int m, int r)
 			j++;
 		}
 	}
-	while (i < n1)
-	{
+	for (; i < n1; i++, k++)
 		array[k] = L[i];
-		i++;
-		k++;
-	}
-	while (j < n2)
-	{
+	for (; j < n2; j++, k++)
 		array[k] = R[j];
-		j++;
-		k++;
-	}
-	printf("[Done]: ");
-	for (n = l; n < k; n++)
-	{
-		if (n == k - 1)
-			printf("%d\n", array[n]);
-		else
-			printf("%d, ", array[n]);
-	}
+	print_done(array, l, k);
 }
 
 /**
