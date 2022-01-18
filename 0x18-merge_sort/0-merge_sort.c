@@ -32,7 +32,7 @@ void merge_sort(int *array, size_t size)
  */
 void merge(int *array, int l, int m, int r)
 {
-	int i, j, k;
+	int i, j, k, n;
 	int n1 = m - l + 1;
 	int n2 = r - m;
 	int L[1024], R[1024];
@@ -81,9 +81,13 @@ void merge(int *array, int l, int m, int r)
 		k++;
 	}
 	printf("[Done]: ");
-	for (i = 0; i < r; i++)
-		printf("%d, ", array[i]);
-	printf("%d\n", array[i]);
+	for (n = l; n < k; n++)
+	{
+		if (n == k - 1)
+			printf("%d\n", array[n]);
+		else
+			printf("%d, ", array[n]);
+	}
 }
 
 /**
