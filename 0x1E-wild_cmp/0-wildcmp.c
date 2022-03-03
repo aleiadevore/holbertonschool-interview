@@ -16,9 +16,10 @@ int wildcmp(char *s1, char *s2)
 	/* If characters are the same, check with next chars */
 	if (*s1 == *s2)
 		return (wildcmp(s1 + 1, s2 + 2));
-	
+
 	/* Check for wildcard */
 	if (*s2 != '*')
 		return (0);
+
 	return (1);
 }
